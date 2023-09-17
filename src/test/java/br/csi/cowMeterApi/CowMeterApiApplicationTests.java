@@ -1,4 +1,4 @@
-package br.csi.cow_meter_api;
+package br.csi.cowMeterApi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

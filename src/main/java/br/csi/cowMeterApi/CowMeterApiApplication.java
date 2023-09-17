@@ -1,4 +1,4 @@
-package br.csi.cow_meter_api;
+package br.csi.cowMeterApi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
