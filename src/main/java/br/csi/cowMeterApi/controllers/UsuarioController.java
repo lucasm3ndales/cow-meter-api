@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/cowMeterApi")
+@RequestMapping("/cowMeterApi/usuario")
 public class UsuarioController {
     private final UsuarioService usuarioService;
 
