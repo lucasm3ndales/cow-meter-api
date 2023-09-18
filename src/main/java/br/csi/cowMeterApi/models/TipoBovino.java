@@ -5,5 +5,5 @@ public enum TipoBovino {
     BOI,
     TOURO,
     BEZERRO,
-    NOVILHO
+    NOVILHA
 }
