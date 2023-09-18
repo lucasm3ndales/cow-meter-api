@@ -23,7 +23,7 @@ public class JwtService {
             return JWT.create()
                     .withIssuer("cow_meter_api")
                     .withSubject(user.getUsername())
-                    .withClaim("ROLE", user.getAuthorities().stream().toList().get(0).toString())
+                    .withClaim("role", user.getAuthorities().stream().toList().get(0).toString())
                     .withExpiresAt(expirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException e) {

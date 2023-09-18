@@ -11,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -31,9 +32,9 @@ public class UsuarioService {
                 throw new InvalidCpfException("CPF já existente no sistema!");
             }
 
-            if(!Usuario.isValidCpf(usuarioDto.cpf())) {
-                throw new InvalidCpfException("CPF inválido: " + usuarioDto.cpf());
-            }
+//            if(!Usuario.isValidCpf(usuarioDto.cpf())) {
+//                throw new InvalidCpfException("CPF inválido: " + usuarioDto.cpf());
+//            }
 
             Role role = null;
             if(!EnumUtils.isRoleValid(usuarioDto.role())) {
@@ -45,7 +46,7 @@ public class UsuarioService {
             Usuario usuario = new Usuario();
             usuario.setNome(usuarioDto.nome().toLowerCase());
             usuario.setCpf(usuarioDto.cpf().replaceAll("\\D", ""));
-            usuario.setSenha(usuarioDto.senha());
+            usuario.setSenha(new BCryptPasswordEncoder().encode(usuarioDto.senha()));
             usuario.setActive(true);
             usuario.setRole(role);
             usuarioRepository.save(usuario);
@@ -64,9 +65,9 @@ public class UsuarioService {
                 throw new InvalidCpfException("CPF já existente no sistema!");
             }
 
-            if(!Usuario.isValidCpf(usuarioDto.cpf())) {
-                throw new InvalidCpfException("CPF inválido: " + usuarioDto.cpf());
-            }
+//            if(!Usuario.isValidCpf(usuarioDto.cpf())) {
+//                throw new InvalidCpfException("CPF inválido: " + usuarioDto.cpf());
+//            }
 
             Role role = null;
             if(!EnumUtils.isRoleValid(usuarioDto.role())) {
@@ -79,8 +80,8 @@ public class UsuarioService {
                     .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado!"));
 
             usuario.setNome(usuarioDto.nome().toLowerCase());
-            usuario.setCpf(usuarioDto.cpf().replaceAll("\\D", ""));
-            usuario.setSenha(usuarioDto.senha());
+//            usuario.setCpf(usuarioDto.cpf().replaceAll("\\D", ""));
+            usuario.setSenha(new BCryptPasswordEncoder().encode(usuarioDto.senha()) );
             usuario.setActive(usuarioDto.active());
             usuario.setRole(role);
             usuarioRepository.save(usuario);

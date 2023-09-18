@@ -32,6 +32,7 @@ public class LoginService {
         LoginDto loginDto = new LoginDto();
         loginDto.setNome(user.getNome());
         loginDto.setId(user.getId());
+        loginDto.setToken(jwt);
         loginDto.setActive(user.getActive());
         loginDto.setRole(user.getRole().name());
 

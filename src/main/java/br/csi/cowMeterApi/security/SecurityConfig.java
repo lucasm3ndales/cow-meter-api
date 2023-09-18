@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,"/cowMeterApi/auth").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/cowMeterApi/usuario/**").hasAuthority(Role.ROLE_ADMIN.name())
+                        .requestMatchers(HttpMethod.POST,"/cowMeterApi/usuario/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
