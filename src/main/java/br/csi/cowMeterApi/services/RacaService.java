@@ -1,0 +1,52 @@
+package br.csi.cowMeterApi.services;
+
+import br.csi.cowMeterApi.models.Raca;
+import br.csi.cowMeterApi.repositories.RacaRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class RacaService {
+    private final RacaRepository racaRepository;
+
+    public RacaService(RacaRepository racaRepository) {
+        this.racaRepository = racaRepository;
+    }
+
+    public Raca salvarRaca(Raca raca) {
+        return racaRepository.save(raca);
+    }
+
+    public Raca atualizarRaca(Long id, Raca raca) {
+        Optional<Raca> racaOptional = racaRepository.findById(id);
+        if (racaOptional.isPresent()) {
+            raca.setId(id);
+            return racaRepository.save(raca);
+        } else {
+            throw new EntityNotFoundException("Raça não encontrada com o ID: " + id);
+        }
+    }
+
+    public boolean excluirRaca(Long id) {
+        Optional<Raca> racaOptional = racaRepository.findById(id);
+        if (racaOptional.isPresent()) {
+            racaRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Raca buscarRaca(Long id) {
+        return racaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Raça não encontrada com o ID: " + id));
+    }
+
+    public Page<Raca> listarRacas(Pageable pageable) {
+        return racaRepository.findAll(pageable);
+    }
+}
