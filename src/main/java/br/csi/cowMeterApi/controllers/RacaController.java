@@ -4,6 +4,7 @@ import br.csi.cowMeterApi.dtos.RacaDto;
 import br.csi.cowMeterApi.models.Raca;
 import br.csi.cowMeterApi.services.RacaService;
 import jakarta.persistence.EntityNotFoundException;
+import org.aspectj.bridge.MessageUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/cowMeterApi/raca")
@@ -68,15 +70,17 @@ public class RacaController {
     }
 
     @GetMapping("/getRaca/{id}")
-    public ResponseEntity<Raca> getRaca(@PathVariable Long id) {
+    public ResponseEntity<Object> getRaca(@PathVariable Long id) {
         Raca raca;
         try {
             raca = racaService.buscarRaca(id);
             return new ResponseEntity<>(raca, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            String mensagemDeErro = "Raça não encontrada.";
+            return new ResponseEntity<>(mensagemDeErro, HttpStatus.NOT_FOUND);
         }
     }
+
 
     @GetMapping("/listRacas")
     public ResponseEntity<List<Raca>> listarRacas() {

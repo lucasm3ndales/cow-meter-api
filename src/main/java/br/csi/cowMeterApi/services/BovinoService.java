@@ -7,8 +7,9 @@ import br.csi.cowMeterApi.repositories.BovinoRepository;
 import br.csi.cowMeterApi.repositories.RacaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BovinoService {
@@ -72,7 +73,9 @@ public class BovinoService {
                 .orElseThrow(() -> new EntityNotFoundException("Bovino não encontrado com o ID: " + id));
     }
 
-    public Page<Bovino> getAllBovinos(Pageable pageable) {
-        return bovinoRepository.findAll(pageable);
+    public List<Bovino> getAllBovinos() {
+        return bovinoRepository.findAll();
     }
+
+
 }

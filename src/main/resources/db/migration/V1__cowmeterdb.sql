@@ -1,4 +1,6 @@
 CREATE TYPE Role AS ENUM ('ROLE_ADMIN', 'ROLE_USUARIO');
+CREATE TYPE RoleSexo AS ENUM ('MACHO', 'FEMEA');
+
 
 CREATE TABLE usuario (
     id SERIAL PRIMARY KEY,
@@ -23,7 +25,7 @@ CREATE TABLE bovino (
     nome VARCHAR(100) NOT NULL,
     peso DECIMAL(10, 2) NOT NULL,
     dataNasc DATE NOT NULL,
-    sexo Role NOT NULL,
+    sexo RoleSexo NOT NULL,
     dataEntradaCio DATE,
     observacoes TEXT,
     castrado BOOLEAN NOT NULL,

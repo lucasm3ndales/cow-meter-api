@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/cowMeterApi/bovino")
 public class BovinoController {
@@ -71,14 +73,11 @@ public class BovinoController {
     }
 
     @GetMapping("/getAllBovinos")
-    public ResponseEntity<Page<Bovino>> getAllBovinos(@RequestParam Pageable pageable) {
-        if (pageable != null) {
-            Page<Bovino> bovinos = bovinoService.getAllBovinos(pageable);
-            return new ResponseEntity<>(bovinos, HttpStatus.OK);
-        }
-        Page<Bovino> bovinos = bovinoService.getAllBovinos(PageRequest.of(0, 10, Sort.unsorted()));
+    public ResponseEntity<List<Bovino>> getAllBovinos() {
+        List<Bovino> bovinos = (List<Bovino>) bovinoService.getAllBovinos();
         return new ResponseEntity<>(bovinos, HttpStatus.OK);
     }
+
 
     private boolean isValidDto(BovinoDto bovinoDto) {
         return bovinoDto != null &&
