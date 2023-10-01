@@ -1,5 +1,6 @@
 package br.csi.cowMeterApi.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,8 +29,10 @@ public class Raca {
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricao;
 
-    @OneToMany(mappedBy = "raca") // Mapeamento inverso no campo 'raca' em Bovino
+    @OneToMany(mappedBy = "raca")
+    @JsonBackReference
     private Set<Bovino> bovinos;
+
 
 
     @CreatedDate

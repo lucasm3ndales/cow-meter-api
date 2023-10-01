@@ -51,14 +51,14 @@ public class BovinoController {
         throw new InvalidRequestDataException("Os dados enviados para atualizar o bovino são inválidos!");
     }
 
-    @DeleteMapping("/deleteBovino/{id}")
-    public ResponseEntity<Boolean> deletarBovino(@PathVariable Long id) throws Exception {
-        if (id != null) {
-            boolean res = bovinoService.deletarBovino(id);
-            return new ResponseEntity<>(res, HttpStatus.OK);
+        @DeleteMapping("/deleteBovino/{id}")
+        public ResponseEntity<Boolean> deletarBovino(@PathVariable Long id) throws Exception {
+            if (id != null) {
+                boolean res = bovinoService.deletarBovino(id);
+                return new ResponseEntity<>(res, HttpStatus.OK);
+            }
+            throw new InvalidRequestDataException("Identificador do bovino não encontrado!");
         }
-        throw new InvalidRequestDataException("Identificador do bovino não encontrado!");
-    }
 
     @GetMapping("/getBovino/{id}")
     public ResponseEntity<Bovino> getBovino(@PathVariable Long id) throws Exception {
@@ -74,7 +74,7 @@ public class BovinoController {
 
     @GetMapping("/getAllBovinos")
     public ResponseEntity<List<Bovino>> getAllBovinos() {
-        List<Bovino> bovinos = (List<Bovino>) bovinoService.getAllBovinos();
+        List<Bovino> bovinos = bovinoService.getAllBovinos();
         return new ResponseEntity<>(bovinos, HttpStatus.OK);
     }
 

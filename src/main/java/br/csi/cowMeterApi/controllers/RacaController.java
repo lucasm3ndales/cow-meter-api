@@ -5,6 +5,7 @@ import br.csi.cowMeterApi.models.Raca;
 import br.csi.cowMeterApi.services.RacaService;
 import jakarta.persistence.EntityNotFoundException;
 import org.aspectj.bridge.MessageUtil;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -60,12 +61,16 @@ public class RacaController {
         }
     }
     @DeleteMapping("/deleteRaca/{id}")
-    public ResponseEntity<Void> excluirRaca(@PathVariable Long id) {
-        boolean deleted = racaService.excluirRaca(id);
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> excluirRaca(@PathVariable Long id) {
+        try {
+            boolean deleted = racaService.excluirRaca(id);
+            if (deleted) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Não foi possível excluir a raça. Ela está sendo referenciada por um bovino.", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>("Não é possível excluir a raça, pois está sendo referenciada por um bovino.", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -82,7 +87,7 @@ public class RacaController {
     }
 
 
-    @GetMapping("/listRacas")
+    @GetMapping("/getAllRacas")
     public ResponseEntity<List<Raca>> listarRacas() {
         List<Raca> racas = racaService.listarRacas();
         return new ResponseEntity<>(racas, HttpStatus.OK);

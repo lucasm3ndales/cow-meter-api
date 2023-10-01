@@ -1,5 +1,7 @@
 package br.csi.cowMeterApi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +25,9 @@ public class Bovino {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     private Raca raca;
+
 
     private String nome;
     private BigDecimal peso;
