@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/cowMeterApi/raca")
 public class RacaController {
@@ -77,10 +79,11 @@ public class RacaController {
     }
 
     @GetMapping("/listRacas")
-    public ResponseEntity<Page<Raca>> listarRacas(@RequestParam Pageable pageable) {
-        Page<Raca> racas = racaService.listarRacas(pageable);
+    public ResponseEntity<List<Raca>> listarRacas() {
+        List<Raca> racas = racaService.listarRacas();
         return new ResponseEntity<>(racas, HttpStatus.OK);
     }
+
     public boolean isValidDto(RacaDto racaDto) {
         return racaDto.nome() != null && !racaDto.nome().isBlank()
         && racaDto.descricao() != null;

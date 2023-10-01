@@ -3,10 +3,9 @@ package br.csi.cowMeterApi.services;
 import br.csi.cowMeterApi.models.Raca;
 import br.csi.cowMeterApi.repositories.RacaRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,7 +45,7 @@ public class RacaService {
                 .orElseThrow(() -> new EntityNotFoundException("Raça não encontrada com o ID: " + id));
     }
 
-    public Page<Raca> listarRacas(Pageable pageable) {
-        return racaRepository.findAll(pageable);
+    public List<Raca> listarRacas() {
+        return racaRepository.findAll();
     }
 }
