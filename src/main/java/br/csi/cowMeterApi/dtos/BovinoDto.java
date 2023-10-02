@@ -1,7 +1,6 @@
 package br.csi.cowMeterApi.dtos;
 
-import br.csi.cowMeterApi.models.Role;
-import br.csi.cowMeterApi.models.RoleSexo;
+import br.csi.cowMeterApi.models.Sexo;
 import br.csi.cowMeterApi.models.TipoBovino;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,7 +10,7 @@ public record BovinoDto(
         String nome,
         BigDecimal peso,
         Date dataNasc,
-        RoleSexo sexo,
+        Sexo sexo,
         Date dataEntradaCio,
         String observacoes,
         boolean castrado,

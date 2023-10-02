@@ -1,7 +1,6 @@
 package br.csi.cowMeterApi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +36,7 @@ public class Bovino {
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "sexo", nullable = false)
-    private RoleSexo sexo;
+    private Sexo sexo;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "data_entrada_cio")
