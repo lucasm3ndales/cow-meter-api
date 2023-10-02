@@ -63,16 +63,21 @@ public class RacaController {
     @DeleteMapping("/deleteRaca/{id}")
     public ResponseEntity<?> excluirRaca(@PathVariable Long id) {
         try {
-            boolean deleted = racaService.excluirRaca(id);
-            if (deleted) {
-                return new ResponseEntity<>(HttpStatus.OK);
+            if (racaService.verificarExistencia(id)) {
+                boolean deleted = racaService.excluirRaca(id);
+                if (deleted) {
+                    return new ResponseEntity<>(HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("Não foi possível excluir a raça. Ela está sendo referenciada por um bovino.", HttpStatus.BAD_REQUEST);
+                }
             } else {
-                return new ResponseEntity<>("Não foi possível excluir a raça. Ela está sendo referenciada por um bovino.", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("A raça com o ID especificado não foi encontrada.", HttpStatus.NOT_FOUND);
             }
         } catch (DataIntegrityViolationException e) {
             return new ResponseEntity<>("Não é possível excluir a raça, pois está sendo referenciada por um bovino.", HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @GetMapping("/getRaca/{id}")
     public ResponseEntity<Object> getRaca(@PathVariable Long id) {

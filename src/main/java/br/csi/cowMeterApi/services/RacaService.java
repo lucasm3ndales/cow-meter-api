@@ -30,6 +30,11 @@ public class RacaService {
         }
     }
 
+    public boolean verificarExistencia(Long id) {
+        return racaRepository.existsById(id);
+    }
+
+
     public boolean excluirRaca(Long id) {
         Optional<Raca> racaOptional = racaRepository.findById(id);
         if (racaOptional.isPresent()) {
