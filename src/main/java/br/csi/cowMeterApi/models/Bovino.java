@@ -36,7 +36,7 @@ public class Bovino {
     private Date dataNasc;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "sexo", nullable = false)
-    private RoleSexo sexo;
+    private Sexo sexo;
     @Temporal(TemporalType.DATE)
     @Column(name = "data_entrada_cio")
     private Date dataEntradaCio;

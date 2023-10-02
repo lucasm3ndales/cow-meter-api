@@ -1,6 +1,6 @@
 package br.csi.cowMeterApi.models;
 
-public enum RoleSexo {
+public enum Sexo {
     MACHO,
     FEMEA
 }
