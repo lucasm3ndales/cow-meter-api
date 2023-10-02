@@ -1,7 +1,6 @@
 package br.csi.cowMeterApi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,42 +21,42 @@ import java.util.Date;
 public class Bovino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
-
     @ManyToOne
     @JsonIgnore
+    @Column(name = "nome", nullable = false)
     private Raca raca;
-
-
+    @Column(name = "nome", nullable = false)
     private String nome;
+    @Column(name = "peso", nullable = false)
     private BigDecimal peso;
-
     @Temporal(TemporalType.DATE)
+    @Column(name = "data_nasc", nullable = false)
     private Date dataNasc;
-
     @Enumerated(value = EnumType.STRING)
     @Column(name = "sexo", nullable = false)
     private RoleSexo sexo;
-
     @Temporal(TemporalType.DATE)
     @Column(name = "data_entrada_cio")
     private Date dataEntradaCio;
-
+    @Column(name = "observacoes", nullable = false, columnDefinition = "TEXT")
     private String observacoes;
+    @Column(name = "castrado", nullable = false)
     private boolean castrado;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_bovino")
     private TipoBovino tipoBovino;
-
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
-
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
+    @ManyToOne
+    @JsonIgnore
+    private Usuario usuario;
 
 }

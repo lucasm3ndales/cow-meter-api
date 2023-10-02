@@ -1,6 +1,5 @@
 package br.csi.cowMeterApi.dtos;
 
-import br.csi.cowMeterApi.models.Role;
 import br.csi.cowMeterApi.models.RoleSexo;
 import br.csi.cowMeterApi.models.TipoBovino;
 import java.math.BigDecimal;

@@ -8,9 +8,9 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
@@ -34,7 +34,8 @@ public class Usuario implements UserDetails {
     private Role role;
     @Column(name = "active", nullable = false)
     private Boolean active;
-    //TODO: fazer o relacionamento com os bovinos, utilizando Set ao invés de List;
+    @OneToMany(mappedBy = "usuario")
+    private Set<Bovino> bovinos;
 
 //    public static boolean isValidCpf(String cpf) {
 //        cpf = cpf.replaceAll("\\D", "");
