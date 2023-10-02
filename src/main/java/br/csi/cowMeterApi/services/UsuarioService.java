@@ -79,9 +79,13 @@ public class UsuarioService {
             Usuario usuario = usuarioRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado!"));
 
+            BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+            if(!bcrypt.matches(usuarioDto.senha(), usuario.getSenha())) {
+                usuario.setSenha(bcrypt.encode(usuarioDto.senha()));
+            }
+
             usuario.setNome(usuarioDto.nome().toLowerCase());
 //            usuario.setCpf(usuarioDto.cpf().replaceAll("\\D", ""));
-            usuario.setSenha(new BCryptPasswordEncoder().encode(usuarioDto.senha()) );
             usuario.setActive(usuarioDto.active());
             usuario.setRole(role);
             usuarioRepository.save(usuario);
@@ -114,7 +118,5 @@ public class UsuarioService {
     public Page<Usuario> getAllUsuarios(Pageable pageable) {
         return usuarioRepository.findAll(pageable);
     }
-
-
 
 }
