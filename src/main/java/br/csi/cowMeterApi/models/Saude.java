@@ -18,8 +18,8 @@ import java.util.Date;
 public class Saude {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdRegistro")
-    private Long idRegistro;
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne
     private Bovino bovino;

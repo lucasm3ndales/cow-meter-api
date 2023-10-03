@@ -34,7 +34,7 @@ CREATE TABLE bovino (
 );
 
 CREATE TABLE saude (
-    IdRegistro SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     idBovino INT,
     tipoTratamento VARCHAR(100) NOT NULL,
     dataTratamento DATE NOT NULL,
