@@ -1,6 +1,7 @@
 package br.csi.cowMeterApi.controllers;
 
 import br.csi.cowMeterApi.dtos.SaudeDto;
+import br.csi.cowMeterApi.exceptions.InvalidRequestDataException;
 import br.csi.cowMeterApi.services.SaudeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,12 +17,20 @@ public class SaudeController {
         this.saudeService = saudeService;
     }
 
-//    @PostMapping("/saveSaude")
-//    public ResponseEntity<String> saveSaude(@RequestBody SaudeDto saudeDto) {
-//
-//    }
-//
-//    private boolean isValidDto(SaudeDto saudeDto) {
-//
-//    }
+    @PostMapping("/saveSaude")
+    public ResponseEntity<String> saveSaude(@RequestBody SaudeDto saudeDto) {
+        if(isValidDto(saudeDto)) {
+
+        }
+        throw new InvalidRequestDataException("Os dados enviados são inválidos");
+    }
+
+    private boolean isValidDto(SaudeDto saudeDto) {
+        return !saudeDto.criadoEm().equals("") &&
+                !saudeDto.observacoes().equals("") &&
+                !saudeDto.medicamentos().equals("") &&
+                !saudeDto.tipoTratamento().equals("") &&
+                !saudeDto.atualizadoEm().equals("") &&
+                !saudeDto.dataTratamento().equals("");
+    }
 }
