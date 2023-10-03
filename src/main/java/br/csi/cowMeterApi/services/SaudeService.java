@@ -5,6 +5,7 @@ import br.csi.cowMeterApi.models.Bovino;
 import br.csi.cowMeterApi.models.Saude;
 import br.csi.cowMeterApi.repositories.BovinoRepository;
 import br.csi.cowMeterApi.repositories.SaudeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,8 @@ public class SaudeService {
     @Transactional
     public Saude saveSaude(SaudeDto saudeDto) throws Exception {
         try {
-            Optional<Bovino> bovino =
-
+            Bovino bovino = bovinoRepository.findById(saudeDto.idBovino())
+                    .orElseThrow(() -> new EntityNotFoundException("O ID do bovino requisitado não existe!"));
 
             Saude saude = new Saude();
             saude.setAtualizadoEm(transformStringToDate(saudeDto.atualizadoEm()));
@@ -34,8 +35,32 @@ public class SaudeService {
             saude.setMedicamentos(saudeDto.medicamentos());
             saude.setTipoTratamento(saudeDto.tipoTratamento());
             saude.setDataTratamento(transformStringToDate(saudeDto.dataTratamento()));
-            saude.setBovino();
+            saude.setBovino(bovino);
             saudeRepository.save(saude);
+            return saude;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    @Transactional
+    public Saude updateSaude(SaudeDto saudeDto, Long id) throws Exception {
+        try {
+            Bovino bovino = bovinoRepository.findById(saudeDto.idBovino())
+                    .orElseThrow(() -> new EntityNotFoundException("O ID do bovino requisitado não existe!"));
+
+            Saude saude = saudeRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("O ID da feira requisitada não existe!"));
+
+            saude.setAtualizadoEm(transformStringToDate(saudeDto.atualizadoEm()));
+            saude.setCriadoEm(transformStringToDate(saudeDto.criadoEm()));
+            saude.setObservacoes(saudeDto.observacoes());
+            saude.setMedicamentos(saudeDto.medicamentos());
+            saude.setTipoTratamento(saudeDto.tipoTratamento());
+            saude.setDataTratamento(transformStringToDate(saudeDto.dataTratamento()));
+            saude.setBovino(bovino);
+            saudeRepository.save(saude);
+            return saude;
         } catch (Exception e) {
             throw new Exception(e.getMessage(), e);
         }
