@@ -26,45 +26,24 @@ public class RacaController {
 
     @PostMapping("/saveRaca")
     public ResponseEntity<Raca> salvarRaca(@RequestBody RacaDto racaDto) {
-        if (!isValidDto(racaDto)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        Raca raca = new Raca();
-        raca.setNome(racaDto.nome());
-        raca.setDescricao(racaDto.descricao());
-
-        Raca savedRaca = racaService.salvarRaca(raca);
+        Raca savedRaca = racaService.salvarRaca(racaDto);
         return new ResponseEntity<>(savedRaca, HttpStatus.OK);
     }
-
 
     @PutMapping("/updateRaca/{id}")
     public ResponseEntity<Raca> atualizarRaca(
             @RequestBody RacaDto racaDto,
             @PathVariable Long id
     ) {
-        if (!isValidDto(racaDto)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        Raca raca = new Raca();
-        raca.setNome(racaDto.nome());
-        raca.setDescricao(racaDto.descricao());
-
-        Raca updatedRaca;
-        try {
-            updatedRaca = racaService.atualizarRaca(id, raca);
-            return new ResponseEntity<>(updatedRaca, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Raca updatedRaca = racaService.atualizarRaca(id, racaDto);
+        return new ResponseEntity<>(updatedRaca, HttpStatus.OK);
     }
+
     @DeleteMapping("/deleteRaca/{id}")
-    public ResponseEntity<?> excluirRaca(@PathVariable Long id) {
+    public ResponseEntity<?> deletarRaca(@PathVariable Long id) {
         try {
             if (racaService.verificarExistencia(id)) {
-                boolean deleted = racaService.excluirRaca(id);
+                boolean deleted = racaService.deletarRaca(id);
                 if (deleted) {
                     return new ResponseEntity<>(HttpStatus.OK);
                 } else {
@@ -78,19 +57,15 @@ public class RacaController {
         }
     }
 
-
     @GetMapping("/getRaca/{id}")
-    public ResponseEntity<Object> getRaca(@PathVariable Long id) {
-        Raca raca;
+    public ResponseEntity<Raca> getRaca(@PathVariable Long id) {
         try {
-            raca = racaService.buscarRaca(id);
+            Raca raca = racaService.buscarRaca(id);
             return new ResponseEntity<>(raca, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
-            String mensagemDeErro = "Raça não encontrada.";
-            return new ResponseEntity<>(mensagemDeErro, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 
     @GetMapping("/getAllRacas")
     public ResponseEntity<List<Raca>> listarRacas() {
@@ -100,6 +75,6 @@ public class RacaController {
 
     public boolean isValidDto(RacaDto racaDto) {
         return racaDto.nome() != null && !racaDto.nome().isBlank()
-        && racaDto.descricao() != null;
+                && racaDto.descricao() != null;
     }
 }
