@@ -16,12 +16,12 @@ public class SaudeController {
         this.saudeService = saudeService;
     }
 
-    @PostMapping("/saveSaude")
-    public ResponseEntity<String> saveSaude(@RequestBody SaudeDto saudeDto) {
-
-    }
-
-    private boolean isValidDto(SaudeDto saudeDto) {
-
-    }
+//    @PostMapping("/saveSaude")
+//    public ResponseEntity<String> saveSaude(@RequestBody SaudeDto saudeDto) {
+//
+//    }
+//
+//    private boolean isValidDto(SaudeDto saudeDto) {
+//
+//    }
 }
