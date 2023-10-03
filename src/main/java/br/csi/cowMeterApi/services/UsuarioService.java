@@ -110,7 +110,7 @@ public class UsuarioService {
         }
     }
 
-    public Usuario getUsuario(Long id) throws Exception {
+    public Usuario getUsuario(Long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado!"));
     }

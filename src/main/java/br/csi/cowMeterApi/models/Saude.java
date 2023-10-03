@@ -22,7 +22,6 @@ public class Saude {
     private Long idRegistro;
 
     @ManyToOne
-    @JoinColumn(name = "idBovino", referencedColumnName = "id")
     private Bovino bovino;
 
     @Column(name = "tipoTratamento", nullable = false, length = 100)
