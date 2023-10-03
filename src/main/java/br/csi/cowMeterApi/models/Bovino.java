@@ -24,7 +24,6 @@ public class Bovino {
     @Column(name = "id", nullable = false)
     private Long id;
     @ManyToOne
-    @JsonIgnore
     private Raca raca;
     @Column(name = "nome", nullable = false)
     private String nome;
