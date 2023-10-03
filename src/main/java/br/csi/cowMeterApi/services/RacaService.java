@@ -1,5 +1,7 @@
 package br.csi.cowMeterApi.services;
 
+import br.csi.cowMeterApi.dtos.RacaDto;
+import br.csi.cowMeterApi.exceptions.InvalidRequestDataException;
 import br.csi.cowMeterApi.models.Raca;
 import br.csi.cowMeterApi.repositories.RacaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,18 +18,22 @@ public class RacaService {
         this.racaRepository = racaRepository;
     }
 
-    public Raca salvarRaca(Raca raca) {
+    public Raca salvarRaca(RacaDto racaDto) {
+        Raca raca = new Raca();
+        raca.setNome(racaDto.nome());
+        raca.setDescricao(racaDto.descricao());
+
         return racaRepository.save(raca);
     }
 
-    public Raca atualizarRaca(Long id, Raca raca) {
-        Optional<Raca> racaOptional = racaRepository.findById(id);
-        if (racaOptional.isPresent()) {
-            raca.setId(id);
-            return racaRepository.save(raca);
-        } else {
-            throw new EntityNotFoundException("Raça não encontrada com o ID: " + id);
-        }
+    public Raca atualizarRaca(Long id, RacaDto racaDto) {
+        Raca raca = racaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Raça não encontrada com o ID: " + id));
+
+        raca.setNome(racaDto.nome());
+        raca.setDescricao(racaDto.descricao());
+
+        return racaRepository.save(raca);
     }
 
     public boolean verificarExistencia(Long id) {
@@ -35,7 +41,7 @@ public class RacaService {
     }
 
 
-    public boolean excluirRaca(Long id) {
+    public boolean deletarRaca(Long id) {
         Optional<Raca> racaOptional = racaRepository.findById(id);
         if (racaOptional.isPresent()) {
             racaRepository.deleteById(id);
