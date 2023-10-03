@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -115,8 +117,8 @@ public class UsuarioService {
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado!"));
     }
 
-    public Page<Usuario> getAllUsuarios(Pageable pageable) {
-        return usuarioRepository.findAll(pageable);
+    public List<Usuario> getAllUsuarios() {
+        return usuarioRepository.findAll();
     }
 
 }

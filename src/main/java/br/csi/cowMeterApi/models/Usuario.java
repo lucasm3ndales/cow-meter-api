@@ -1,5 +1,7 @@
 package br.csi.cowMeterApi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +36,8 @@ public class Usuario implements UserDetails {
     private Role role;
     @Column(name = "active", nullable = false)
     private Boolean active;
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Set<Bovino> bovinos;
 
 //    public static boolean isValidCpf(String cpf) {
@@ -92,36 +95,43 @@ public class Usuario implements UserDetails {
 //    }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.role.name()));
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return this.senha;
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return this.cpf;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return this.active;
     }

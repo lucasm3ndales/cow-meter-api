@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/cowMeterApi/usuario")
 public class UsuarioController {
@@ -73,13 +75,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/getAllUsuarios")
-    public ResponseEntity<Page<Usuario>> getAllUsuario(@RequestParam Pageable pageable) {
-        if(pageable != null) {
-            Page<Usuario> usuarios = usuarioService.getAllUsuarios(pageable);
+    public ResponseEntity<List<Usuario>> getAllUsuarios() {
+            List<Usuario> usuarios = usuarioService.getAllUsuarios();
             return new ResponseEntity<>(usuarios, HttpStatus.OK);
-        }
-        Page<Usuario> usuarios = usuarioService.getAllUsuarios(PageRequest.of(0, 10, Sort.unsorted()));
-        return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
     private boolean isValidDto(UsuarioDto usuarioDto) {

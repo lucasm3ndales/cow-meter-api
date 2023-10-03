@@ -1,5 +1,6 @@
 package br.csi.cowMeterApi.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -54,7 +55,7 @@ public class Bovino {
     @Column(name = "updated_at")
     private Date updatedAt;
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference
     private Usuario usuario;
 
 }

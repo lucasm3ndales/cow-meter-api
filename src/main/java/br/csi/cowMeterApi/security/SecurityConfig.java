@@ -31,6 +31,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,"/cowMeterApi/auth").permitAll()
                         .requestMatchers(HttpMethod.POST,"/cowMeterApi/usuario/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/cowMeterApi/usuario/getAllUsuarios").hasAuthority(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE,"/cowMeterApi/usuario/activeUsuario").hasRole(Role.ADMIN.name())
                         .anyRequest().authenticated()
                 )
