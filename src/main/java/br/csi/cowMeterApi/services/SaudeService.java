@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 @Service
 public class SaudeService {
@@ -34,6 +33,8 @@ public class SaudeService {
             saude.setObservacoes(saudeDto.observacoes());
             saude.setMedicamentos(saudeDto.medicamentos());
             saude.setTipoTratamento(saudeDto.tipoTratamento());
+            saude.setPeso(saudeDto.peso());
+            saude.setDataEntradaCio(saudeDto.dataEntradaCio());
             saude.setDataTratamento(transformStringToDate(saudeDto.dataTratamento()));
             saude.setBovino(bovino);
             saudeRepository.save(saude);
@@ -57,6 +58,8 @@ public class SaudeService {
             saude.setObservacoes(saudeDto.observacoes());
             saude.setMedicamentos(saudeDto.medicamentos());
             saude.setTipoTratamento(saudeDto.tipoTratamento());
+            saude.setPeso(saudeDto.peso());
+            saude.setDataEntradaCio(saudeDto.dataEntradaCio());
             saude.setDataTratamento(transformStringToDate(saudeDto.dataTratamento()));
             saude.setBovino(bovino);
             saudeRepository.save(saude);

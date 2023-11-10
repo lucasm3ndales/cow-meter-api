@@ -99,40 +99,40 @@ public class Usuario implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.role.name()));
     }
-
     @Override
     @JsonIgnore
     public String getPassword() {
         return this.senha;
     }
-
     @Override
     @JsonIgnore
     public String getUsername() {
         return this.cpf;
     }
-
     @Override
     @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
-
     @Override
     @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
-
     @Override
     @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
     @Override
     @JsonIgnore
     public boolean isEnabled() {
         return this.active;
     }
+
+    public enum Role {
+        ADMIN, CRIADOR
+    }
+
+
 }

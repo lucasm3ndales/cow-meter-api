@@ -28,17 +28,12 @@ public class Bovino {
     private Raca raca;
     @Column(name = "nome", nullable = false)
     private String nome;
-    @Column(name = "peso", nullable = false)
-    private BigDecimal peso;
     @Temporal(TemporalType.DATE)
     @Column(name = "data_nasc", nullable = false)
     private Date dataNasc;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "sexo", nullable = false)
     private Sexo sexo;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "data_entrada_cio")
-    private Date dataEntradaCio;
     @Column(name = "observacoes", nullable = false, columnDefinition = "TEXT")
     private String observacoes;
     @Column(name = "castrado", nullable = false)
@@ -48,14 +43,28 @@ public class Bovino {
     private TipoBovino tipoBovino;
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
+    @Column(name = "criado_em")
+    private Date criadoEm;
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    @Column(name = "atualizado_em")
+    private Date atualizadoEm;
     @ManyToOne
     @JsonBackReference
     private Usuario usuario;
+
+    public enum TipoBovino {
+        VACA,
+        BOI,
+        TOURO,
+        BEZERRO,
+        NOVILHA
+    }
+
+    public enum Sexo {
+        MACHO,
+        FEMEA
+    }
+
 
 }

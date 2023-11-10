@@ -3,14 +3,11 @@ package br.csi.cowMeterApi.services;
 import br.csi.cowMeterApi.dtos.UsuarioDto;
 import br.csi.cowMeterApi.exceptions.InvalidCpfException;
 import br.csi.cowMeterApi.exceptions.InvalidEnumException;
-import br.csi.cowMeterApi.models.Role;
 import br.csi.cowMeterApi.models.Usuario;
 import br.csi.cowMeterApi.repositories.UsuarioRepository;
 import br.csi.cowMeterApi.utils.enumUtils.EnumUtils;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +35,11 @@ public class UsuarioService {
 //                throw new InvalidCpfException("CPF inválido: " + usuarioDto.cpf());
 //            }
 
-            Role role = null;
+            Usuario.Role role = null;
             if(!EnumUtils.isRoleValid(usuarioDto.role())) {
                 throw new InvalidEnumException("Permissão de usuário Inválida");
             } else {
-                role = Role.valueOf(usuarioDto.role());
+                role = Usuario.Role.valueOf(usuarioDto.role());
             }
 
             Usuario usuario = new Usuario();
@@ -67,15 +64,11 @@ public class UsuarioService {
                 throw new InvalidCpfException("CPF já existente no sistema!");
             }
 
-//            if(!Usuario.isValidCpf(usuarioDto.cpf())) {
-//                throw new InvalidCpfException("CPF inválido: " + usuarioDto.cpf());
-//            }
-
-            Role role = null;
+            Usuario.Role role = null;
             if(!EnumUtils.isRoleValid(usuarioDto.role())) {
                 throw new InvalidEnumException("Permissão de usuário Inválida");
             } else {
-                role = Role.valueOf(usuarioDto.role());
+                role = Usuario.Role.valueOf(usuarioDto.role());
             }
 
             Usuario usuario = usuarioRepository.findById(id)
@@ -87,7 +80,6 @@ public class UsuarioService {
             }
 
             usuario.setNome(usuarioDto.nome().toLowerCase());
-//            usuario.setCpf(usuarioDto.cpf().replaceAll("\\D", ""));
             usuario.setActive(usuarioDto.active());
             usuario.setRole(role);
             usuarioRepository.save(usuario);

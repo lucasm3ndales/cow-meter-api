@@ -5,7 +5,6 @@ import br.csi.cowMeterApi.exceptions.InvalidRequestDataException;
 import br.csi.cowMeterApi.models.Saude;
 import br.csi.cowMeterApi.services.SaudeService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

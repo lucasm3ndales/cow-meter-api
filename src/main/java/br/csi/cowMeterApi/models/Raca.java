@@ -22,26 +22,19 @@ public class Raca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
-
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricao;
-
     @OneToMany(mappedBy = "raca")
     @JsonBackReference
     private Set<Bovino> bovinos;
-
-
-
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
-
+    @Column(name = "criado_em", nullable = false)
+    private Date criadoEm;
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    @Column(name = "atualizado_em", nullable = false)
+    private Date atualizado_em;
 }

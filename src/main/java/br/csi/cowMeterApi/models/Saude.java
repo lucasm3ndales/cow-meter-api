@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -20,30 +22,28 @@ public class Saude {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     @ManyToOne
     private Bovino bovino;
-
+    @Column(name = "peso", nullable = false)
+    private BigDecimal peso;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "data_entrada_cio")
+    private Date dataEntradaCio;
     @Column(name = "tipoTratamento", nullable = false, length = 100)
     private String tipoTratamento;
-
     @Temporal(TemporalType.DATE)
     @Column(name = "dataTratamento", nullable = false)
     private Date dataTratamento;
-
     @Column(name = "medicamentos", columnDefinition = "TEXT")
     private String medicamentos;
-
     @Column(name = "observacoes", columnDefinition = "TEXT")
     private String observacoes;
-
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
+    @Column(name = "criado_em")
     private Date criadoEm;
-
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
+    @Column(name = "atualizado_em")
     private Date atualizadoEm;
 }

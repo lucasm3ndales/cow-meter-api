@@ -1,7 +1,6 @@
 package br.csi.cowMeterApi.services;
 
 import br.csi.cowMeterApi.dtos.RacaDto;
-import br.csi.cowMeterApi.exceptions.InvalidRequestDataException;
 import br.csi.cowMeterApi.models.Raca;
 import br.csi.cowMeterApi.repositories.RacaRepository;
 import jakarta.persistence.EntityNotFoundException;
