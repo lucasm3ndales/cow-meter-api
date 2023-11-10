@@ -58,13 +58,26 @@ public class BovinoService {
         Bovino bovino = bovinoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Bovino não encontrado com o ID: " + id));
 
+        Bovino.Sexo sexo = null;
+        Bovino.TipoBovino tipoBovino = null;
+        if(!EnumUtils.isRoleValid(bovinoDto.sexo())) {
+        } else {
+            sexo = Bovino.Sexo.valueOf(bovinoDto.sexo());
+        }
+
+        if(!EnumUtils.isRoleValid(bovinoDto.tipoBovino())) {
+
+        } else {
+            tipoBovino = Bovino.TipoBovino.valueOf(bovinoDto.tipoBovino());
+        }
+
         bovino.setRaca(raca);
         bovino.setNome(bovinoDto.nome());
         bovino.setDataNasc(bovinoDto.dataNasc());
-        bovino.setSexo(bovinoDto.sexo());
+        bovino.setSexo(sexo);
         bovino.setObservacoes(bovinoDto.observacoes());
         bovino.setCastrado(bovinoDto.castrado());
-        bovino.setTipoBovino(bovinoDto.tipoBovino());
+        bovino.setTipoBovino(tipoBovino);
 
         return bovinoRepository.save(bovino);
     }
