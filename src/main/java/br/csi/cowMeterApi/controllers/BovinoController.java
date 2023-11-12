@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cowMeterApi/bovino")
+@RequestMapping("/bovino")
 public class BovinoController {
     private final BovinoService bovinoService;
 
@@ -79,10 +79,8 @@ public class BovinoController {
         return bovinoDto != null &&
                 bovinoDto.idRaca() != null &&
                 bovinoDto.nome() != null && !bovinoDto.nome().isBlank() &&
-                bovinoDto.peso() != null &&
                 bovinoDto.dataNasc() != null &&
                 bovinoDto.sexo() != null &&
-                bovinoDto.dataEntradaCio() != null &&
                 bovinoDto.tipoBovino() != null;
     }
 }

@@ -1,6 +1,6 @@
 package br.csi.cowMeterApi.security;
 
-import br.csi.cowMeterApi.models.Role;
+import br.csi.cowMeterApi.models.Usuario;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -30,9 +30,9 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,"/cowMeterApi/auth").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/cowMeterApi/usuario/saveUsuario").hasAuthority(Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.GET,"/cowMeterApi/usuario/getAllUsuarios").hasAuthority(Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.DELETE,"/cowMeterApi/usuario/activeUsuario").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST,"/cowMeterApi/usuario/saveUsuario").hasAuthority(Usuario.Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET,"/cowMeterApi/usuario/getAllUsuarios").hasAuthority(Usuario.Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE,"/cowMeterApi/usuario/activeUsuario").hasRole(Usuario.Role.ADMIN.name())
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)

@@ -14,7 +14,7 @@
     <name>cow_meter_api</name>
     <description>cow_meter_api</description>
     <properties>
-        <java.version>20</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -76,7 +76,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>cow-meter-api</finalName>
+        <finalName>cow_meter_api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -92,5 +92,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

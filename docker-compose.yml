@@ -1,0 +1,41 @@
+version: '3'
+services:
+  cow_meter_api:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      PostgresSql:
+        condition: service_healthy
+    restart: on-failure
+    networks:
+      - rede
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgresSql:5432/cowmeter
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+  PostgresSql:
+    image: postgres:14.5
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=cowmeter
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - rede
+    volumes:
+      - pg-data:/docker-entrypoint-initdb.d
+volumes:
+  pg-data:
+networks:
+  rede:
+    driver: bridge

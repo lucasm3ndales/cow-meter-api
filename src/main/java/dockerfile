@@ -1,5 +1,0 @@
-FROM openjdk:21
-WORKDIR /app
-ADD target/cow-meter-api.jar /app/cow-meter-api.jar
-ENTRYPOINT ["java", "-jar", "cow-meter-api.jar"]
-EXPOSE 8080

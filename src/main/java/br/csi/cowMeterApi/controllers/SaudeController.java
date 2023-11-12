@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("CowMeterApi/saude")
+@RequestMapping("/saude")
 public class SaudeController {
     private final SaudeService saudeService;
     public SaudeController(SaudeService saudeService) {

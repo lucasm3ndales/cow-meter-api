@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/cowMeterApi/raca")
+@RequestMapping("/raca")
 public class RacaController {
     private final RacaService racaService;
 
