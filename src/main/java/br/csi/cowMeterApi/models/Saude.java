@@ -27,12 +27,12 @@ public class Saude {
     @Column(name = "peso", nullable = false)
     private BigDecimal peso;
     @Temporal(TemporalType.DATE)
-    @Column(name = "data_entrada_cio")
+    @Column(name = "data_entradacio")
     private Date dataEntradaCio;
-    @Column(name = "tipoTratamento", nullable = false, length = 100)
+    @Column(name = "tipo_tratamento", nullable = false, length = 100)
     private String tipoTratamento;
     @Temporal(TemporalType.DATE)
-    @Column(name = "dataTratamento", nullable = false)
+    @Column(name = "data_tratamento", nullable = false)
     private Date dataTratamento;
     @Column(name = "medicamentos", columnDefinition = "TEXT")
     private String medicamentos;

@@ -32,7 +32,7 @@ public class Usuario implements UserDetails {
     @Column(name = "senha", nullable = false)
     private String senha;
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "role", nullable = false)
+    @Column(name = "roles", nullable = false)
     private Role role;
     @Column(name = "active", nullable = false)
     private Boolean active;
