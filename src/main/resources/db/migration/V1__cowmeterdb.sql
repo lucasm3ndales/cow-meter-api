@@ -46,23 +46,3 @@ CREATE TABLE saude (
     observacoes TEXT,
     FOREIGN KEY (bovinoId) REFERENCES bovino(id)
 );
-
--- Inserir Usuários
-INSERT INTO usuario (id, nome, cpf, senha, role, active) VALUES
-     (1, 'João Silva', '12345678901', '1234', 'ADMIN', true),
-     (2, 'Maria Oliveira', '98765432101', '1234', 'CRIADOR', true);
-
--- Inserir Raças
-INSERT INTO raca (id, nome, descricao, criado_em, atualizado_em) VALUES
-     (1, 'holandesa', 'Raça leiteira originária dos Países Baixos', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-     (2, 'nelore', 'Raça de gado zebu criada no Brasil para corte', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
--- Inserir Bovinos
-INSERT INTO bovino (id, racaId, nome, dataNasc, sexo, observacoes, castrado, tipoBovino, criado_em, atualizado_em, usuarioId) VALUES
-      (1, 1, 'Bela', '2020-01-15', 'FEMEA', 'Vaca leiteira', false, 'VACA', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
-      (2, 2, 'Cabron', '2019-05-20', 'MACHO', 'Boi de Corte', true, 'BOI', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2);
-
--- Inserir Dados de Saúde
-INSERT INTO saude (id, bovinoId, peso, dataEntradaCio, tipoTratamento, dataTratamento, medicamentos, observacoes) VALUES
-      (1, 1, 600, '2022-11-01', 'Preventivo', CURRENT_DATE, 'Vitamina A', 'Check-up anual'),
-      (2, 2, 800, NULL, 'Curativo', '2022-10-15', 'Antibiótico', 'Tratamento após ferimento');
