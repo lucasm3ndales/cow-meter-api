@@ -1,9 +1,9 @@
 -- Inserts for 'usuario' table
 INSERT INTO usuario (nome, cpf, senha, roles, active)
-VALUES ('Admin User', '123.456.789-00', 'adminpassword', 'ADMIN', true),
-       ('Criador User', '987.654.321-00', 'criadorpassword', 'CRIADOR', true),
-       ('John Doe', '111.222.333-44', 'userpassword', 'CRIADOR', true),
-       ('Jane Doe', '555.666.777-88', 'userpassword', 'CRIADOR', true);
+VALUES ('Admin User', '123.456.789-00', '1234', 'ADMIN', true),
+       ('Criador User', '987.654.321-00', '1234', 'CRIADOR', true),
+       ('John Doe', '111.222.333-44', '1234', 'CRIADOR', true),
+       ('Jane Doe', '555.666.777-88', '1234', 'CRIADOR', true);
 
 -- Inserts for 'raca' table
 INSERT INTO raca (nome, descricao, criado_em, atualizado_em)

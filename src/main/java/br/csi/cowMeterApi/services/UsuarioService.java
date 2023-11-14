@@ -31,10 +31,6 @@ public class UsuarioService {
                 throw new InvalidCpfException("CPF já existente no sistema!");
             }
 
-//            if(!Usuario.isValidCpf(usuarioDto.cpf())) {
-//                throw new InvalidCpfException("CPF inválido: " + usuarioDto.cpf());
-//            }
-
             Usuario.Role role = null;
             if(!EnumUtils.isRoleValid(usuarioDto.role())) {
                 throw new InvalidEnumException("Permissão de usuário Inválida");

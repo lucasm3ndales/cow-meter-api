@@ -1,6 +1,6 @@
 version: '3'
 services:
-  cow_meter_api:
+  cow-meter-api:
     build:
       context: .
       dockerfile: dockerfile
@@ -13,7 +13,7 @@ services:
     networks:
       - rede
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgresSql:5432/cowmeter
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgresSql:5432/cowmeterdb
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1234
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -24,7 +24,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=1234
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=cowmeter
+      - POSTGRES_DB=cowmeterdb
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
