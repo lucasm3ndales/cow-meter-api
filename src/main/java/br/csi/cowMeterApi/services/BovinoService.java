@@ -9,6 +9,8 @@ import br.csi.cowMeterApi.utils.enumUtils.EnumUtils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -39,6 +41,9 @@ public class BovinoService {
             tipoBovino = Bovino.TipoBovino.valueOf(bovinoDto.tipoBovino());
         }
 
+        Date currentDate = new Date(System.currentTimeMillis());
+        Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
+
         Bovino bovino = new Bovino();
         bovino.setRaca(raca);
         bovino.setNome(bovinoDto.nome());
@@ -47,6 +52,8 @@ public class BovinoService {
         bovino.setObservacoes(bovinoDto.observacoes());
         bovino.setCastrado(bovinoDto.castrado());
         bovino.setTipoBovino(tipoBovino);
+        bovino.setCriadoEm(currentTimestamp);
+        bovino.setAtualizadoEm(currentTimestamp);
 
         return bovinoRepository.save(bovino);
     }
@@ -71,6 +78,9 @@ public class BovinoService {
             tipoBovino = Bovino.TipoBovino.valueOf(bovinoDto.tipoBovino());
         }
 
+        Date currentDate = new Date(System.currentTimeMillis());
+        Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
+
         bovino.setRaca(raca);
         bovino.setNome(bovinoDto.nome());
         bovino.setDataNasc(bovinoDto.dataNasc());
@@ -78,6 +88,8 @@ public class BovinoService {
         bovino.setObservacoes(bovinoDto.observacoes());
         bovino.setCastrado(bovinoDto.castrado());
         bovino.setTipoBovino(tipoBovino);
+        bovino.setAtualizadoEm(currentTimestamp);
+
 
         return bovinoRepository.save(bovino);
     }

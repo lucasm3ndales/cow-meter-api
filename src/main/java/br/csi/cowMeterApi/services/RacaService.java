@@ -6,6 +6,8 @@ import br.csi.cowMeterApi.repositories.RacaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +20,15 @@ public class RacaService {
     }
 
     public Raca salvarRaca(RacaDto racaDto) {
+
+        Date currentDate = new Date(System.currentTimeMillis());
+        Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
+
         Raca raca = new Raca();
         raca.setNome(racaDto.nome());
         raca.setDescricao(racaDto.descricao());
+        raca.setCriadoEm(currentTimestamp);
+        raca.setAtualizado_em(currentTimestamp);
 
         return racaRepository.save(raca);
     }
@@ -29,8 +37,12 @@ public class RacaService {
         Raca raca = racaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Raça não encontrada com o ID: " + id));
 
+        Date currentDate = new Date(System.currentTimeMillis());
+        Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
+
         raca.setNome(racaDto.nome());
         raca.setDescricao(racaDto.descricao());
+        raca.setAtualizado_em(currentTimestamp);
 
         return racaRepository.save(raca);
     }

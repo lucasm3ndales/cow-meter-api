@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,6 +28,9 @@ public class SaudeService {
             Bovino bovino = bovinoRepository.findById(saudeDto.idBovino())
                     .orElseThrow(() -> new EntityNotFoundException("O ID do bovino requisitado não existe!"));
 
+            java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+            Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
+
             Saude saude = new Saude();
             saude.setAtualizadoEm(transformStringToDate(saudeDto.atualizadoEm()));
             saude.setCriadoEm(transformStringToDate(saudeDto.criadoEm()));
@@ -37,6 +41,8 @@ public class SaudeService {
             saude.setDataEntradaCio(saudeDto.dataEntradaCio());
             saude.setDataTratamento(transformStringToDate(saudeDto.dataTratamento()));
             saude.setBovino(bovino);
+            saude.setCriadoEm(currentTimestamp);
+            saude.setAtualizadoEm(currentTimestamp);
             saudeRepository.save(saude);
             return saude;
         } catch (Exception e) {
@@ -53,6 +59,9 @@ public class SaudeService {
             Saude saude = saudeRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("O ID da feira requisitada não existe!"));
 
+            java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+            Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
+
             saude.setAtualizadoEm(transformStringToDate(saudeDto.atualizadoEm()));
             saude.setCriadoEm(transformStringToDate(saudeDto.criadoEm()));
             saude.setObservacoes(saudeDto.observacoes());
@@ -62,6 +71,7 @@ public class SaudeService {
             saude.setDataEntradaCio(saudeDto.dataEntradaCio());
             saude.setDataTratamento(transformStringToDate(saudeDto.dataTratamento()));
             saude.setBovino(bovino);
+            saude.setAtualizadoEm(currentTimestamp);
             saudeRepository.save(saude);
             return saude;
         } catch (Exception e) {
