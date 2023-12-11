@@ -31,6 +31,9 @@ public class SaudeService {
             java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
             Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
 
+            SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse(saudeDto.dataEntradaCio());
+
             Saude saude = new Saude();
             saude.setAtualizadoEm(transformStringToDate(saudeDto.atualizadoEm()));
             saude.setCriadoEm(transformStringToDate(saudeDto.criadoEm()));
@@ -38,7 +41,7 @@ public class SaudeService {
             saude.setMedicamentos(saudeDto.medicamentos());
             saude.setTipoTratamento(saudeDto.tipoTratamento());
             saude.setPeso(saudeDto.peso());
-            saude.setDataEntradaCio(saudeDto.dataEntradaCio());
+            saude.setDataEntradaCio(date);
             saude.setDataTratamento(transformStringToDate(saudeDto.dataTratamento()));
             saude.setBovino(bovino);
             saude.setCriadoEm(currentTimestamp);
@@ -62,13 +65,16 @@ public class SaudeService {
             java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
             Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
 
+            SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse(saudeDto.dataEntradaCio());
+
             saude.setAtualizadoEm(transformStringToDate(saudeDto.atualizadoEm()));
             saude.setCriadoEm(transformStringToDate(saudeDto.criadoEm()));
             saude.setObservacoes(saudeDto.observacoes());
             saude.setMedicamentos(saudeDto.medicamentos());
             saude.setTipoTratamento(saudeDto.tipoTratamento());
             saude.setPeso(saudeDto.peso());
-            saude.setDataEntradaCio(saudeDto.dataEntradaCio());
+            saude.setDataEntradaCio(date);
             saude.setDataTratamento(transformStringToDate(saudeDto.dataTratamento()));
             saude.setBovino(bovino);
             saude.setAtualizadoEm(currentTimestamp);

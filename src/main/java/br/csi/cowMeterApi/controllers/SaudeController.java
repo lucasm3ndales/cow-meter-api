@@ -4,6 +4,7 @@ import br.csi.cowMeterApi.dtos.SaudeDto;
 import br.csi.cowMeterApi.exceptions.InvalidRequestDataException;
 import br.csi.cowMeterApi.models.Saude;
 import br.csi.cowMeterApi.services.SaudeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class SaudeController {
     }
 
     @PostMapping("/saveSaude")
-    public ResponseEntity<Saude> saveSaude(@RequestBody SaudeDto saudeDto) throws Exception {
+    public ResponseEntity<Saude> saveSaude(@Valid @RequestBody SaudeDto saudeDto) throws Exception {
         if(isValidDto(saudeDto)) {
             Saude savedSaude = saudeService.saveSaude(saudeDto);
             if(savedSaude != null) {
@@ -28,7 +29,7 @@ public class SaudeController {
     }
 
     @PutMapping("/updateSaude/{id}")
-    public ResponseEntity<Saude> saveSaude(@RequestBody SaudeDto saudeDto, @PathVariable Long id) throws Exception {
+    public ResponseEntity<Saude> saveSaude(@Valid @RequestBody SaudeDto saudeDto, @Valid @PathVariable Long id) throws Exception {
         if(isValidDto(saudeDto) && id != null) {
             Saude updatedSaude = saudeService.updateSaude(saudeDto, id);
             if(updatedSaude != null) {

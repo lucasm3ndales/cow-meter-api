@@ -4,6 +4,7 @@ import br.csi.cowMeterApi.dtos.RacaDto;
 import br.csi.cowMeterApi.models.Raca;
 import br.csi.cowMeterApi.services.RacaService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,22 +23,22 @@ public class RacaController {
     }
 
     @PostMapping("/saveRaca")
-    public ResponseEntity<Raca> salvarRaca(@RequestBody RacaDto racaDto) {
+    public ResponseEntity<Raca> salvarRaca(@Valid @RequestBody RacaDto racaDto) throws Exception {
         Raca savedRaca = racaService.salvarRaca(racaDto);
         return new ResponseEntity<>(savedRaca, HttpStatus.OK);
     }
 
     @PutMapping("/updateRaca/{id}")
     public ResponseEntity<Raca> atualizarRaca(
-            @RequestBody RacaDto racaDto,
-            @PathVariable Long id
-    ) {
+            @Valid @RequestBody RacaDto racaDto,
+            @Valid @PathVariable Long id
+    ) throws Exception {
         Raca updatedRaca = racaService.atualizarRaca(id, racaDto);
         return new ResponseEntity<>(updatedRaca, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteRaca/{id}")
-    public ResponseEntity<?> deletarRaca(@PathVariable Long id) {
+    public ResponseEntity<?> deletarRaca(@Valid @PathVariable Long id) throws Exception{
         try {
             if (racaService.verificarExistencia(id)) {
                 boolean deleted = racaService.deletarRaca(id);
@@ -55,7 +56,7 @@ public class RacaController {
     }
 
     @GetMapping("/getRaca/{id}")
-    public ResponseEntity<Raca> getRaca(@PathVariable Long id) {
+    public ResponseEntity<Raca> getRaca(@Valid @PathVariable Long id) {
         try {
             Raca raca = racaService.buscarRaca(id);
             return new ResponseEntity<>(raca, HttpStatus.OK);

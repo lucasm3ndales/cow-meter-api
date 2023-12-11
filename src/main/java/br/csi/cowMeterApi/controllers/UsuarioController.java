@@ -5,6 +5,7 @@ import br.csi.cowMeterApi.exceptions.InvalidRequestDataException;
 import br.csi.cowMeterApi.models.Usuario;
 import br.csi.cowMeterApi.services.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/saveUsuario")
-    public ResponseEntity<String> salvarUsuario(@RequestBody UsuarioDto usuarioDto) throws Exception {
+    public ResponseEntity<String> salvarUsuario(@Valid @RequestBody UsuarioDto usuarioDto) throws Exception {
         if(isValidDto(usuarioDto)) {
             boolean res =  usuarioService.salvarUsuario(usuarioDto);
             if(res) {
@@ -34,8 +35,8 @@ public class UsuarioController {
 
     @PutMapping("/updateUsuario/{id}")
     public ResponseEntity<String> atualizarUsuario(
-            @RequestBody UsuarioDto usuarioDto,
-            @PathVariable Long id
+            @Valid @RequestBody UsuarioDto usuarioDto,
+            @Valid @PathVariable Long id
     ) throws Exception {
         if(isValidDto(usuarioDto) && id != null) {
             boolean res =  usuarioService.atualizarUsuario(usuarioDto, id);
@@ -49,7 +50,7 @@ public class UsuarioController {
 
     @PutMapping("/activeUsuario/{id}")
     public ResponseEntity<Boolean> desativarUsuario(
-            @PathVariable Long id
+            @Valid @PathVariable Long id
     ) throws Exception {
         if(id != null) {
             boolean res =  usuarioService.desativarUsuario(id);
@@ -59,7 +60,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/getUsuario/{id}")
-    public ResponseEntity<Usuario> getUsuario(@PathVariable Long id) throws Exception  {
+    public ResponseEntity<Usuario> getUsuario(@Valid @PathVariable Long id) throws Exception  {
         if(id != null) {
             Usuario res =  usuarioService.getUsuario(id);
             if(res != null) {

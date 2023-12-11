@@ -3,6 +3,9 @@ package br.csi.cowMeterApi.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,15 +29,25 @@ public class Usuario implements UserDetails {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
     @Column(name = "nome", nullable = false, length = 100)
+    @NotBlank
+    @NotNull
     private String nome;
     @Column(name = "cpf", nullable = false, unique = true, length = 14)
+    @NotBlank
+    @NotNull
+    @Size(min = 14)
     private String cpf;
     @Column(name = "senha", nullable = false)
+    @NotBlank
+    @NotNull
     private String senha;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "roles", nullable = false)
+    @NotBlank
+    @NotNull
     private Role role;
     @Column(name = "active", nullable = false)
+    @NotNull
     private Boolean active;
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @JsonManagedReference

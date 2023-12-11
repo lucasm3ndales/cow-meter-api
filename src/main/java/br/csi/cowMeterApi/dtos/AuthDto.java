@@ -1,4 +1,13 @@
 package br.csi.cowMeterApi.dtos;
 
-public record AuthDto(String cpf, String senha) {
-}
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record AuthDto(
+        @NotBlank
+        @NotNull
+        String cpf,
+        @NotBlank
+        @NotNull
+        String senha
+) {}

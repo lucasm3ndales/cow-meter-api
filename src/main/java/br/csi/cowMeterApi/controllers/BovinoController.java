@@ -5,6 +5,7 @@ import br.csi.cowMeterApi.exceptions.InvalidRequestDataException;
 import br.csi.cowMeterApi.models.Bovino;
 import br.csi.cowMeterApi.services.BovinoService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class BovinoController {
     }
 
     @PostMapping("/saveBovino")
-    public ResponseEntity<String> salvarBovino(@RequestBody BovinoDto bovinoDto) throws Exception {
+    public ResponseEntity<String> salvarBovino(@Valid @RequestBody BovinoDto bovinoDto) throws Exception {
         if (isValidDto(bovinoDto)) {
             Bovino bovino = bovinoService.salvarBovino(bovinoDto);
             if (bovino != null) {
@@ -34,8 +35,8 @@ public class BovinoController {
 
     @PutMapping("/updateBovino/{id}")
     public ResponseEntity<String> atualizarBovino(
-            @RequestBody BovinoDto bovinoDto,
-            @PathVariable Long id
+            @Valid @RequestBody BovinoDto bovinoDto,
+            @Valid @PathVariable Long id
     ) throws Exception {
         if (isValidDto(bovinoDto)) {
             Bovino bovino = bovinoService.atualizarBovino(id, bovinoDto);
@@ -48,7 +49,7 @@ public class BovinoController {
     }
 
         @DeleteMapping("/deleteBovino/{id}")
-        public ResponseEntity<Boolean> deletarBovino(@PathVariable Long id) throws Exception {
+        public ResponseEntity<Boolean> deletarBovino(@Valid @PathVariable Long id) throws Exception {
             if (id != null) {
                 boolean res = bovinoService.deletarBovino(id);
                 return new ResponseEntity<>(res, HttpStatus.OK);
@@ -57,7 +58,7 @@ public class BovinoController {
         }
 
     @GetMapping("/getBovino/{id}")
-    public ResponseEntity<Bovino> getBovino(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Bovino> getBovino(@Valid @PathVariable Long id)  {
         if (id != null) {
             Bovino res = bovinoService.getBovino(id);
             if (res != null) {

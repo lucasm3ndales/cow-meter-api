@@ -4,6 +4,7 @@ import br.csi.cowMeterApi.dtos.RacaDto;
 import br.csi.cowMeterApi.models.Raca;
 import br.csi.cowMeterApi.repositories.RacaRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -19,32 +20,43 @@ public class RacaService {
         this.racaRepository = racaRepository;
     }
 
-    public Raca salvarRaca(RacaDto racaDto) {
+    @Transactional
+    public Raca salvarRaca(RacaDto racaDto) throws Exception {
+        try {
+            Date currentDate = new Date(System.currentTimeMillis());
+            Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
 
-        Date currentDate = new Date(System.currentTimeMillis());
-        Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
+            Raca raca = new Raca();
+            raca.setNome(racaDto.nome());
+            raca.setDescricao(racaDto.descricao());
+            raca.setCriadoEm(currentTimestamp);
+            raca.setAtualizado_em(currentTimestamp);
 
-        Raca raca = new Raca();
-        raca.setNome(racaDto.nome());
-        raca.setDescricao(racaDto.descricao());
-        raca.setCriadoEm(currentTimestamp);
-        raca.setAtualizado_em(currentTimestamp);
+            return racaRepository.save(raca);
 
-        return racaRepository.save(raca);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage(), e);
+        }
+
     }
 
-    public Raca atualizarRaca(Long id, RacaDto racaDto) {
-        Raca raca = racaRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Raça não encontrada com o ID: " + id));
+    @Transactional
+    public Raca atualizarRaca(Long id, RacaDto racaDto) throws Exception {
+        try {
+            Raca raca = racaRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Raça não encontrada com o ID: " + id));
 
-        Date currentDate = new Date(System.currentTimeMillis());
-        Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
+            Date currentDate = new Date(System.currentTimeMillis());
+            Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
 
-        raca.setNome(racaDto.nome());
-        raca.setDescricao(racaDto.descricao());
-        raca.setAtualizado_em(currentTimestamp);
+            raca.setNome(racaDto.nome());
+            raca.setDescricao(racaDto.descricao());
+            raca.setAtualizado_em(currentTimestamp);
 
-        return racaRepository.save(raca);
+            return racaRepository.save(raca);
+        }catch (Exception e) {
+            throw new Exception(e.getMessage(), e);
+        }
     }
 
     public boolean verificarExistencia(Long id) {
@@ -52,13 +64,18 @@ public class RacaService {
     }
 
 
-    public boolean deletarRaca(Long id) {
-        Optional<Raca> racaOptional = racaRepository.findById(id);
-        if (racaOptional.isPresent()) {
-            racaRepository.deleteById(id);
-            return true;
-        } else {
-            return false;
+    @Transactional
+    public boolean deletarRaca(Long id) throws  Exception{
+        try {
+            Optional<Raca> racaOptional = racaRepository.findById(id);
+            if (racaOptional.isPresent()) {
+                racaRepository.deleteById(id);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage(), e);
         }
     }
 

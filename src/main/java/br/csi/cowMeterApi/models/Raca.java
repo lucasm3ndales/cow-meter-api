@@ -2,6 +2,8 @@ package br.csi.cowMeterApi.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,8 @@ public class Raca {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "nome", nullable = false, length = 100)
+    @NotBlank
+    @NotNull
     private String nome;
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricao;
@@ -32,9 +36,11 @@ public class Raca {
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "criado_em", nullable = false)
+    @NotNull
     private Date criadoEm;
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "atualizado_em", nullable = false)
+    @NotNull
     private Date atualizado_em;
 }
