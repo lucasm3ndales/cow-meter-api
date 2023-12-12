@@ -26,7 +26,7 @@ import java.util.Set;
 public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "id")
     private Long id;
     @Column(name = "nome", nullable = false, length = 100)
     @NotBlank
@@ -49,7 +49,7 @@ public class Usuario implements UserDetails {
     @Column(name = "active", nullable = false)
     @NotNull
     private Boolean active;
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<Bovino> bovinos;
 

@@ -2,6 +2,7 @@ package br.csi.cowMeterApi.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "bovino")
@@ -24,7 +26,7 @@ import java.util.Date;
 public class Bovino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
     @ManyToOne
     private Raca raca;
@@ -47,23 +49,26 @@ public class Bovino {
     @NotNull
     private boolean castrado;
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_bovino")
+    @Column(name = "tipo_bovino", nullable = false)
     @NotBlank
     @NotNull
     private TipoBovino tipoBovino;
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "criado_em")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "criado_em", nullable = false)
     @NotNull
     private Date criadoEm;
     @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "atualizado_em")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "atualizado_em", nullable = false)
     @NotNull
     private Date atualizadoEm;
     @ManyToOne
     @JsonBackReference
     private Usuario usuario;
+    @OneToMany(mappedBy = "bovino",  cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Saude> saudes;
 
     public enum TipoBovino {
         VACA,

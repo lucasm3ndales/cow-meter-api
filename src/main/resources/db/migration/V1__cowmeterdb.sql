@@ -8,7 +8,7 @@ CREATE TABLE usuario
     nome   VARCHAR(100) NOT NULL,
     cpf    VARCHAR(14)  NOT NULL UNIQUE,
     senha  VARCHAR(255) NOT NULL,
-    roles   Roles        NOT NULL,
+    roles  Roles        NOT NULL,
     active BOOLEAN      NOT NULL
 );
 
@@ -24,13 +24,13 @@ CREATE TABLE raca
 CREATE TABLE bovino
 (
     id            BIGSERIAL PRIMARY KEY,
-    raca_id       INT,
+    raca_id       BIGINT NOT NULL,
     nome          VARCHAR(100) NOT NULL,
     data_nasc     DATE         NOT NULL,
     sexo          RoleSexo     NOT NULL,
     observacoes   TEXT,
     castrado      BOOLEAN      NOT NULL,
-    tipo_bovino   TipoBovino,
+    tipo_bovino   TipoBovino NOT NULL ,
     criado_em     DATE         NOT NULL,
     atualizado_em DATE         NOT NULL,
     usuario_id    BIGINT       NOT NULL,
@@ -41,13 +41,15 @@ CREATE TABLE bovino
 CREATE TABLE saude
 (
     id              BIGSERIAL PRIMARY KEY,
-    bovino_id       INT,
+    bovino_id       BIGINT NOT NULL,
     peso            DECIMAL(10, 2) NOT NULL,
     data_entradacio DATE,
     tipo_tratamento VARCHAR(100)   NOT NULL,
     data_tratamento DATE           NOT NULL,
     medicamentos    TEXT,
     observacoes     TEXT,
+    criado_em       DATE           NOT NULL,
+    atualizado_em   DATE           NOT NULL,
     FOREIGN KEY (bovino_id) REFERENCES bovino (id)
 );
 

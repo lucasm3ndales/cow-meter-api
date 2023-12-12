@@ -23,6 +23,7 @@ import java.util.Set;
 public class Raca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @Column(name = "nome", nullable = false, length = 100)
     @NotBlank
@@ -34,12 +35,12 @@ public class Raca {
     @JsonBackReference
     private Set<Bovino> bovinos;
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "criado_em", nullable = false)
     @NotNull
     private Date criadoEm;
     @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "atualizado_em", nullable = false)
     @NotNull
     private Date atualizado_em;
