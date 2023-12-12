@@ -40,11 +40,12 @@ public class SaudeController {
     }
 
     private boolean isValidDto(SaudeDto saudeDto) {
-        return !saudeDto.criadoEm().equals("") &&
-                !saudeDto.observacoes().equals("") &&
-                !saudeDto.medicamentos().equals("") &&
-                !saudeDto.tipoTratamento().equals("") &&
-                !saudeDto.atualizadoEm().equals("") &&
-                !saudeDto.dataTratamento().equals("");
+        return !saudeDto.observacoes().isBlank() &&
+                !saudeDto.medicamentos().isBlank() &&
+                !saudeDto.tipoTratamento().isBlank() &&
+                !saudeDto.dataTratamento().isBlank() &&
+                saudeDto.peso() != null &&
+                !saudeDto.dataEntradaCio().isBlank() &&
+                saudeDto.idBovino() != null;
     }
 }

@@ -1,6 +1,7 @@
 package br.csi.cowMeterApi.controllers;
 
 import br.csi.cowMeterApi.dtos.BovinoDto;
+import br.csi.cowMeterApi.dtos.BovinoUpdateDto;
 import br.csi.cowMeterApi.exceptions.InvalidRequestDataException;
 import br.csi.cowMeterApi.models.Bovino;
 import br.csi.cowMeterApi.services.BovinoService;
@@ -35,10 +36,10 @@ public class BovinoController {
 
     @PutMapping("/updateBovino/{id}")
     public ResponseEntity<String> atualizarBovino(
-            @Valid @RequestBody BovinoDto bovinoDto,
+            @Valid @RequestBody BovinoUpdateDto bovinoDto,
             @Valid @PathVariable Long id
     ) throws Exception {
-        if (isValidDto(bovinoDto)) {
+        if (isValidUpdateDto(bovinoDto)) {
             Bovino bovino = bovinoService.atualizarBovino(id, bovinoDto);
             if (bovino != null) {
                 return new ResponseEntity<>("Bovino atualizado com sucesso!", HttpStatus.OK);
@@ -76,9 +77,16 @@ public class BovinoController {
     }
 
 
+    private boolean isValidUpdateDto(BovinoUpdateDto bovinoDto) {
+        return bovinoDto.nome() != null
+                && !bovinoDto.nome().isBlank()
+                && bovinoDto.castrado() != null
+                && !bovinoDto.observacoes().isBlank()
+                && bovinoDto.observacoes() != null;
+    }
+
     private boolean isValidDto(BovinoDto bovinoDto) {
-        return bovinoDto != null &&
-                bovinoDto.idRaca() != null &&
+        return bovinoDto.idRaca() != null &&
                 bovinoDto.nome() != null && !bovinoDto.nome().isBlank() &&
                 bovinoDto.dataNasc() != null &&
                 bovinoDto.sexo() != null &&

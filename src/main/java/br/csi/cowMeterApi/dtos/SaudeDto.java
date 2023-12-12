@@ -22,12 +22,6 @@ public record SaudeDto(
         String observacoes,
         @NotBlank
         @NotNull
-        String criadoEm,
-        @NotBlank
-        @NotNull
-        String atualizadoEm,
-        @NotBlank
-        @NotNull
         String dataEntradaCio,
         @NotNull
         @Positive

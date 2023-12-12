@@ -30,16 +30,15 @@ public class SaudeService {
 
             SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
             Date date = sdf.parse(saudeDto.dataEntradaCio());
+            Date dataTratamento  = sdf.parse(saudeDto.dataTratamento());
 
             Saude saude = new Saude();
-            saude.setAtualizadoEm(transformStringToDate(saudeDto.atualizadoEm()));
-            saude.setCriadoEm(transformStringToDate(saudeDto.criadoEm()));
             saude.setObservacoes(saudeDto.observacoes());
             saude.setMedicamentos(saudeDto.medicamentos());
             saude.setTipoTratamento(saudeDto.tipoTratamento());
             saude.setPeso(saudeDto.peso());
             saude.setDataEntradaCio(date);
-            saude.setDataTratamento(transformStringToDate(saudeDto.dataTratamento()));
+            saude.setDataTratamento(dataTratamento);
             saude.setBovino(bovino);
             saude.setCriadoEm(currentDate);
             saude.setAtualizadoEm(currentDate);
@@ -62,16 +61,15 @@ public class SaudeService {
             java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
 
             SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
-            Date date = (Date) sdf.parse(saudeDto.dataEntradaCio());
+            Date date = sdf.parse(saudeDto.dataEntradaCio());
+            Date dataTratamento  = sdf.parse(saudeDto.dataTratamento());
 
-            saude.setAtualizadoEm(transformStringToDate(saudeDto.atualizadoEm()));
-            saude.setCriadoEm(transformStringToDate(saudeDto.criadoEm()));
             saude.setObservacoes(saudeDto.observacoes());
             saude.setMedicamentos(saudeDto.medicamentos());
             saude.setTipoTratamento(saudeDto.tipoTratamento());
             saude.setPeso(saudeDto.peso());
             saude.setDataEntradaCio(date);
-            saude.setDataTratamento(transformStringToDate(saudeDto.dataTratamento()));
+            saude.setDataTratamento(dataTratamento);
             saude.setBovino(bovino);
             saude.setAtualizadoEm(currentDate);
             saudeRepository.save(saude);
@@ -81,8 +79,5 @@ public class SaudeService {
         }
     }
 
-    private Date transformStringToDate(String str) throws Exception {
-        return (Date) new SimpleDateFormat("dd/MM/yyyy").parse(str);
-    }
 
 }

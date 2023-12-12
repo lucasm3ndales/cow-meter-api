@@ -1,6 +1,7 @@
 package br.csi.cowMeterApi.services;
 
 import br.csi.cowMeterApi.dtos.BovinoDto;
+import br.csi.cowMeterApi.dtos.BovinoUpdateDto;
 import br.csi.cowMeterApi.exceptions.InvalidEnumException;
 import br.csi.cowMeterApi.models.Bovino;
 import br.csi.cowMeterApi.models.Raca;
@@ -71,36 +72,17 @@ public class BovinoService {
     }
 
     @Transactional
-    public Bovino atualizarBovino(Long id, BovinoDto bovinoDto) throws Exception {
+    public Bovino atualizarBovino(Long id, BovinoUpdateDto bovinoDto) throws Exception {
         try{
-            Raca raca = racaRepository.findById(bovinoDto.idRaca())
-                    .orElseThrow(() -> new EntityNotFoundException("Raça não encontrada com o ID: " + bovinoDto.idRaca()));
-
             Bovino bovino = bovinoRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Bovino não encontrado com o ID: " + id));
 
-            Bovino.Sexo sexo = EnumUtils.stringToEnum(Bovino.Sexo.class, bovinoDto.sexo());
-            Bovino.TipoBovino tipoBovino = EnumUtils.stringToEnum(Bovino.TipoBovino.class, bovinoDto.tipoBovino());
-            if(sexo.name().isBlank()) {
-                throw new InvalidEnumException("Sexo inválido!");
-            }
-
-            if(tipoBovino.name().isBlank()) {
-                throw new InvalidEnumException("Tipo bovino inválido!");
-            }
-
             Date currentDate = new Date(System.currentTimeMillis());
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = (Date) sdf.parse(bovinoDto.dataNasc());
 
             bovino.setNome(bovinoDto.nome());
             bovino.setObservacoes(bovinoDto.observacoes());
             bovino.setCastrado(bovinoDto.castrado());
             bovino.setAtualizadoEm(currentDate);
-
-
-
             return bovinoRepository.save(bovino);
 
         } catch (Exception e) {
