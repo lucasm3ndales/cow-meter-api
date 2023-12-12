@@ -32,10 +32,10 @@ public class Usuario implements UserDetails {
     @NotBlank
     @NotNull
     private String nome;
-    @Column(name = "cpf", nullable = false, unique = true, length = 14)
+    @Column(name = "cpf", nullable = false, unique = true, length = 11)
     @NotBlank
     @NotNull
-    @Size(min = 14)
+    @Size(min = 11)
     private String cpf;
     @Column(name = "senha", nullable = false)
     @NotBlank
