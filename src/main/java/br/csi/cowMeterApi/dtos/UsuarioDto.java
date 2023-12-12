@@ -13,7 +13,6 @@ public record UsuarioDto(
         @NotBlank
         @NotNull
         String senha,
-        @NotBlank
         @NotNull
         String role,
         @NotNull

@@ -6,7 +6,7 @@ CREATE TABLE usuario
 (
     id     BIGSERIAL PRIMARY KEY,
     nome   VARCHAR(100) NOT NULL,
-    cpf    VARCHAR(14)  NOT NULL UNIQUE,
+    cpf    VARCHAR(11)  NOT NULL UNIQUE,
     senha  VARCHAR(255) NOT NULL,
     roles  Roles        NOT NULL,
     active BOOLEAN      NOT NULL

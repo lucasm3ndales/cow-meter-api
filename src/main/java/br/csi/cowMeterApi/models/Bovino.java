@@ -40,7 +40,6 @@ public class Bovino {
     private Date dataNasc;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "sexo", nullable = false)
-    @NotBlank
     @NotNull
     private Sexo sexo;
     @Column(name = "observacoes", nullable = false, columnDefinition = "TEXT")
@@ -50,7 +49,6 @@ public class Bovino {
     private boolean castrado;
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_bovino", nullable = false)
-    @NotBlank
     @NotNull
     private TipoBovino tipoBovino;
     @CreatedDate
@@ -66,7 +64,7 @@ public class Bovino {
     @ManyToOne
     @JsonBackReference
     private Usuario usuario;
-    @OneToMany(mappedBy = "bovino",  cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bovino",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<Saude> saudes;
 

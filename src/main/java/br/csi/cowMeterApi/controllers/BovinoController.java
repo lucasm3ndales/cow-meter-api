@@ -82,6 +82,7 @@ public class BovinoController {
                 bovinoDto.nome() != null && !bovinoDto.nome().isBlank() &&
                 bovinoDto.dataNasc() != null &&
                 bovinoDto.sexo() != null &&
-                bovinoDto.tipoBovino() != null;
+                bovinoDto.tipoBovino() != null &&
+                bovinoDto.idUsuario() != null;
     }
 }

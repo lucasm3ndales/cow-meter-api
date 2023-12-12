@@ -35,7 +35,7 @@ public class Usuario implements UserDetails {
     @Column(name = "cpf", nullable = false, unique = true, length = 11)
     @NotBlank
     @NotNull
-    @Size(min = 11)
+    @Size(max = 11)
     private String cpf;
     @Column(name = "senha", nullable = false)
     @NotBlank
@@ -43,13 +43,12 @@ public class Usuario implements UserDetails {
     private String senha;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "roles", nullable = false)
-    @NotBlank
     @NotNull
     private Role role;
     @Column(name = "active", nullable = false)
     @NotNull
     private Boolean active;
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<Bovino> bovinos;
 
@@ -90,7 +89,8 @@ public class Usuario implements UserDetails {
     }
 
     public enum Role {
-        ADMIN, CRIADOR
+        ADMIN,
+        CRIADOR
     }
 
 

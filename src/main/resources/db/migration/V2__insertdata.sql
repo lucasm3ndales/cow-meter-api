@@ -1,9 +1,9 @@
 -- Inserts for 'usuario' table
 INSERT INTO usuario (id ,nome, cpf, senha, roles, active)
-VALUES (1, 'Mark', '29812364789', '$2a$12$5EnUPOUtkOSrDiOvLM.GROe6xIpBrs9l5NuscONyWGcY36WS0421a', 'ADMIN', true),
-       (2, 'Gordon', '19246363748', '$2a$12$5EnUPOUtkOSrDiOvLM.GROe6xIpBrs9l5NuscONyWGcY36WS0421a', 'CRIADOR', true),
-       (3, 'Zac', '67835467364', '$2a$12$5EnUPOUtkOSrDiOvLM.GROe6xIpBrs9l5NuscONyWGcY36WS0421a', 'CRIADOR', true),
-       (4, 'Jane', '10932237875', '$2a$12$5EnUPOUtkOSrDiOvLM.GROe6xIpBrs9l5NuscONyWGcY36WS0421a', 'CRIADOR', true);
+VALUES (1, 'Mark', '13688811062', '$2a$12$5EnUPOUtkOSrDiOvLM.GROe6xIpBrs9l5NuscONyWGcY36WS0421a', 'ADMIN', true),
+       (2, 'Gordon', '34856757091', '$2a$12$5EnUPOUtkOSrDiOvLM.GROe6xIpBrs9l5NuscONyWGcY36WS0421a', 'CRIADOR', true),
+       (3, 'Zac', '23512586066', '$2a$12$5EnUPOUtkOSrDiOvLM.GROe6xIpBrs9l5NuscONyWGcY36WS0421a', 'CRIADOR', true),
+       (4, 'Jane', '07020974031', '$2a$12$5EnUPOUtkOSrDiOvLM.GROe6xIpBrs9l5NuscONyWGcY36WS0421a', 'CRIADOR', true);
 
 -- Inserts for 'raca' table
 INSERT INTO raca (id, nome, descricao, criado_em, atualizado_em)

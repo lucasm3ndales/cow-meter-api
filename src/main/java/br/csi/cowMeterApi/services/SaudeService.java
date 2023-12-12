@@ -8,9 +8,8 @@ import br.csi.cowMeterApi.repositories.SaudeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class SaudeService {
@@ -30,7 +29,7 @@ public class SaudeService {
             Date currentDate = new java.sql.Date(System.currentTimeMillis());
 
             SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
-            Date date = (Date) sdf.parse(saudeDto.dataEntradaCio());
+            Date date = sdf.parse(saudeDto.dataEntradaCio());
 
             Saude saude = new Saude();
             saude.setAtualizadoEm(transformStringToDate(saudeDto.atualizadoEm()));

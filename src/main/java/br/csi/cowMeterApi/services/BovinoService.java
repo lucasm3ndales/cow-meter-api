@@ -1,29 +1,31 @@
 package br.csi.cowMeterApi.services;
 
 import br.csi.cowMeterApi.dtos.BovinoDto;
+import br.csi.cowMeterApi.exceptions.InvalidEnumException;
 import br.csi.cowMeterApi.models.Bovino;
 import br.csi.cowMeterApi.models.Raca;
+import br.csi.cowMeterApi.models.Usuario;
 import br.csi.cowMeterApi.repositories.BovinoRepository;
 import br.csi.cowMeterApi.repositories.RacaRepository;
+import br.csi.cowMeterApi.repositories.UsuarioRepository;
 import br.csi.cowMeterApi.utils.enumUtils.EnumUtils;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class BovinoService {
     private final BovinoRepository bovinoRepository;
     private final RacaRepository racaRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public BovinoService(BovinoRepository bovinoRepository, RacaRepository racaRepository) {
+    public BovinoService(BovinoRepository bovinoRepository, RacaRepository racaRepository, UsuarioRepository usuarioRepository) {
         this.bovinoRepository = bovinoRepository;
         this.racaRepository = racaRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @Transactional
@@ -31,25 +33,24 @@ public class BovinoService {
         try{
             Raca raca = racaRepository.findById(bovinoDto.idRaca())
                     .orElseThrow(() -> new EntityNotFoundException("Raça não encontrada com o ID: " + bovinoDto.idRaca()));
+            Usuario usuario = usuarioRepository.findById(bovinoDto.idUsuario())
+                    .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o ID: " + bovinoDto.idUsuario()));
 
 
-            Bovino.Sexo sexo = null;
-            Bovino.TipoBovino tipoBovino = null;
-            if(!EnumUtils.isRoleValid(bovinoDto.sexo())) {
-            } else {
-                sexo = Bovino.Sexo.valueOf(bovinoDto.sexo());
+            Bovino.Sexo sexo = EnumUtils.stringToEnum(Bovino.Sexo.class, bovinoDto.sexo());
+            Bovino.TipoBovino tipoBovino = EnumUtils.stringToEnum(Bovino.TipoBovino.class, bovinoDto.tipoBovino());
+            if(sexo.name().isBlank()) {
+                throw new InvalidEnumException("Sexo inválido!");
             }
 
-            if(!EnumUtils.isRoleValid(bovinoDto.tipoBovino())) {
-
-            } else {
-                tipoBovino = Bovino.TipoBovino.valueOf(bovinoDto.tipoBovino());
+            if(tipoBovino.name().isBlank()) {
+                throw new InvalidEnumException("Tipo bovino inválido!");
             }
 
             Date currentDate = new Date(System.currentTimeMillis());
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = (Date) sdf.parse(bovinoDto.dataNasc());
+            Date date = sdf.parse(bovinoDto.dataNasc());
 
             Bovino bovino = new Bovino();
             bovino.setRaca(raca);
@@ -61,6 +62,7 @@ public class BovinoService {
             bovino.setTipoBovino(tipoBovino);
             bovino.setCriadoEm(currentDate);
             bovino.setAtualizadoEm(currentDate);
+            bovino.setUsuario(usuario);
 
             return bovinoRepository.save(bovino);
         } catch (Exception e) {
@@ -77,17 +79,14 @@ public class BovinoService {
             Bovino bovino = bovinoRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Bovino não encontrado com o ID: " + id));
 
-            Bovino.Sexo sexo = null;
-            Bovino.TipoBovino tipoBovino = null;
-            if(!EnumUtils.isRoleValid(bovinoDto.sexo())) {
-            } else {
-                sexo = Bovino.Sexo.valueOf(bovinoDto.sexo());
+            Bovino.Sexo sexo = EnumUtils.stringToEnum(Bovino.Sexo.class, bovinoDto.sexo());
+            Bovino.TipoBovino tipoBovino = EnumUtils.stringToEnum(Bovino.TipoBovino.class, bovinoDto.tipoBovino());
+            if(sexo.name().isBlank()) {
+                throw new InvalidEnumException("Sexo inválido!");
             }
 
-            if(!EnumUtils.isRoleValid(bovinoDto.tipoBovino())) {
-
-            } else {
-                tipoBovino = Bovino.TipoBovino.valueOf(bovinoDto.tipoBovino());
+            if(tipoBovino.name().isBlank()) {
+                throw new InvalidEnumException("Tipo bovino inválido!");
             }
 
             Date currentDate = new Date(System.currentTimeMillis());
@@ -95,14 +94,11 @@ public class BovinoService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = (Date) sdf.parse(bovinoDto.dataNasc());
 
-            bovino.setRaca(raca);
             bovino.setNome(bovinoDto.nome());
-            bovino.setDataNasc(date);
-            bovino.setSexo(sexo);
             bovino.setObservacoes(bovinoDto.observacoes());
             bovino.setCastrado(bovinoDto.castrado());
-            bovino.setTipoBovino(tipoBovino);
             bovino.setAtualizadoEm(currentDate);
+
 
 
             return bovinoRepository.save(bovino);

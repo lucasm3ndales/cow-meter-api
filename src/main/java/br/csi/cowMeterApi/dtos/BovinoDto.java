@@ -15,7 +15,6 @@ public record BovinoDto(
         String nome,
         @NotNull
         String dataNasc,
-        @NotBlank
         @NotNull
         String sexo,
         @NotBlank
@@ -23,7 +22,8 @@ public record BovinoDto(
         String observacoes,
         @NotNull
         Boolean castrado,
-        @NotBlank
         @NotNull
-        String tipoBovino
+        String tipoBovino,
+        @NotNull
+        Long idUsuario
 ){}

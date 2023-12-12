@@ -31,11 +31,9 @@ public class UsuarioService {
                 throw new InvalidCpfException("CPF já existente no sistema!");
             }
 
-            Usuario.Role role = null;
-            if(!EnumUtils.isRoleValid(usuarioDto.role())) {
+            Usuario.Role role = EnumUtils.stringToEnum(Usuario.Role.class, usuarioDto.role());
+            if(role.name().isBlank()) {
                 throw new InvalidEnumException("Permissão de usuário Inválida");
-            } else {
-                role = Usuario.Role.valueOf(usuarioDto.role());
             }
 
             Usuario usuario = new Usuario();
@@ -60,11 +58,9 @@ public class UsuarioService {
                 throw new InvalidCpfException("CPF já existente no sistema!");
             }
 
-            Usuario.Role role = null;
-            if(!EnumUtils.isRoleValid(usuarioDto.role())) {
+            Usuario.Role role = EnumUtils.stringToEnum(Usuario.Role.class, usuarioDto.role());
+            if(role.name().isBlank()) {
                 throw new InvalidEnumException("Permissão de usuário Inválida");
-            } else {
-                role = Usuario.Role.valueOf(usuarioDto.role());
             }
 
             Usuario usuario = usuarioRepository.findById(id)
