@@ -47,7 +47,6 @@ public class BovinoService {
             }
 
             Date currentDate = new Date(System.currentTimeMillis());
-            Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = (Date) sdf.parse(bovinoDto.dataNasc());
@@ -60,8 +59,8 @@ public class BovinoService {
             bovino.setObservacoes(bovinoDto.observacoes());
             bovino.setCastrado(bovinoDto.castrado());
             bovino.setTipoBovino(tipoBovino);
-            bovino.setCriadoEm(currentTimestamp);
-            bovino.setAtualizadoEm(currentTimestamp);
+            bovino.setCriadoEm(currentDate);
+            bovino.setAtualizadoEm(currentDate);
 
             return bovinoRepository.save(bovino);
         } catch (Exception e) {
@@ -92,7 +91,6 @@ public class BovinoService {
             }
 
             Date currentDate = new Date(System.currentTimeMillis());
-            Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = (Date) sdf.parse(bovinoDto.dataNasc());
@@ -104,7 +102,7 @@ public class BovinoService {
             bovino.setObservacoes(bovinoDto.observacoes());
             bovino.setCastrado(bovinoDto.castrado());
             bovino.setTipoBovino(tipoBovino);
-            bovino.setAtualizadoEm(currentTimestamp);
+            bovino.setAtualizadoEm(currentDate);
 
 
             return bovinoRepository.save(bovino);

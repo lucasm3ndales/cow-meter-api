@@ -24,13 +24,12 @@ public class RacaService {
     public Raca salvarRaca(RacaDto racaDto) throws Exception {
         try {
             Date currentDate = new Date(System.currentTimeMillis());
-            Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
 
             Raca raca = new Raca();
             raca.setNome(racaDto.nome());
             raca.setDescricao(racaDto.descricao());
-            raca.setCriadoEm(currentTimestamp);
-            raca.setAtualizado_em(currentTimestamp);
+            raca.setCriadoEm(currentDate);
+            raca.setAtualizado_em(currentDate);
 
             return racaRepository.save(raca);
 
@@ -47,11 +46,10 @@ public class RacaService {
                     .orElseThrow(() -> new EntityNotFoundException("Raça não encontrada com o ID: " + id));
 
             Date currentDate = new Date(System.currentTimeMillis());
-            Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
 
             raca.setNome(racaDto.nome());
             raca.setDescricao(racaDto.descricao());
-            raca.setAtualizado_em(currentTimestamp);
+            raca.setAtualizado_em(currentDate);
 
             return racaRepository.save(raca);
         }catch (Exception e) {
